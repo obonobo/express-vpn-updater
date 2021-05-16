@@ -8,8 +8,16 @@ import (
 )
 
 const (
-	RedirectQueryParamKey = "redirect"
+	REDIRECT_QUERY_PARAM_KEY = "redirect"
 )
+
+type QueryParams struct {
+	redirect bool
+}
+
+type paramsCache struct {
+	params *QueryParams
+}
 
 type ScraperController struct {
 	s service.ScraperService
@@ -30,13 +38,10 @@ func Default() *ScraperController {
 }
 
 func (c *ScraperController) ScrapeAndRespond(req util.Request) util.Response {
-	params := req.QueryStringParameters
-	wantsRedirect, ok := params[RedirectQueryParamKey]
-	redirectNeeded, err := strconv.ParseBool(wantsRedirect)
-	if ok && err == nil && !redirectNeeded {
-		return c.GrabLatestLink()
+	if parse(req).redirect {
+		return c.RedirectToLatest()
 	}
-	return c.RedirectToLatest()
+	return c.GrabLatestLink()
 }
 
 func (c *ScraperController) GrabLatestLink() util.Response {
@@ -53,4 +58,21 @@ func (c *ScraperController) RedirectToLatest() util.Response {
 		return *clientError
 	}
 	return util.Redirect(link)
+}
+
+func (p *paramsCache) save(req util.Request) *paramsCache {
+	if p.params == nil {
+		p.params = &QueryParams{redirect: true}
+	}
+	requestParams := req.QueryStringParameters
+	wantsRedirect, ok := requestParams[REDIRECT_QUERY_PARAM_KEY]
+	redirectNeeded, err := strconv.ParseBool(wantsRedirect)
+	if ok && err == nil {
+		p.params.redirect = redirectNeeded
+	}
+	return p
+}
+
+func parse(req util.Request) QueryParams {
+	return *(&paramsCache{}).save(req).params
 }

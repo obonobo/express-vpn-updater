@@ -20,6 +20,7 @@ const (
 	OK                 = 200
 	CLIENT_ERROR       = 400
 	REDIRECT_SEE_OTHER = 303
+	NOT_FOUND          = 404
 )
 
 func Jsonify(body map[string]interface{}) string {
@@ -54,6 +55,14 @@ func BasicMessage(body string) Response {
 
 func ClientError(body map[string]interface{}, headers map[string]string) Response {
 	return CreateResponse(CLIENT_ERROR, body, headers)
+}
+
+func NotFound() Response {
+	return NotFoundWithHeaders(nil)
+}
+
+func NotFoundWithHeaders(headers map[string]string) Response {
+	return CreateResponse(NOT_FOUND, nil, headers)
 }
 
 func CreateResponse(status int, body map[string]interface{}, headers map[string]string) Response {
