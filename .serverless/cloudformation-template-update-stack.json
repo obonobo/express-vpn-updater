@@ -77,12 +77,6 @@
         "LogGroupName": "/aws/lambda/express-vpn-updater-dev-hello"
       }
     },
-    "WorldLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/express-vpn-updater-dev-world"
-      }
-    },
     "HelloLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -90,9 +84,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/express-vpn-updater/dev/1621150623783-2021-05-16T07:37:03.783Z/express-vpn-updater.zip"
+          "S3Key": "serverless/express-vpn-updater/dev/1621179038708-2021-05-16T15:30:38.708Z/express-vpn-updater.zip"
         },
-        "Handler": "bin/hello",
+        "Handler": "bin/healthcheck",
         "Runtime": "go1.x",
         "FunctionName": "express-vpn-updater-dev-hello",
         "MemorySize": 1024,
@@ -103,44 +97,14 @@
         "HelloLogGroup"
       ]
     },
-    "WorldLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/express-vpn-updater/dev/1621150623783-2021-05-16T07:37:03.783Z/express-vpn-updater.zip"
-        },
-        "Handler": "bin/world",
-        "Runtime": "go1.x",
-        "FunctionName": "express-vpn-updater-dev-world",
-        "MemorySize": 1024,
-        "Timeout": 6,
-        "Role": "arn:aws:iam::081940731328:role/lambda-s3"
-      },
-      "DependsOn": [
-        "WorldLogGroup"
-      ]
-    },
-    "HelloLambdaVersion0FrFyQtOZICcAEfS5jAuO2V0fL4MYGbZyRUuktJiZRA": {
+    "HelloLambdaVersionkLa6aFEi5Idw3XETYJwuLuqDFx0HBP5ksP1C6MecUxc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "kbI46XLWRjQAdGpeHEHDLJQ82YCM3ORz7Cc51PSEick="
-      }
-    },
-    "WorldLambdaVersiontWlodvHClKA3ihI64ey3iLwgaSWcUYmKri5Ae5GM8": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "WorldLambdaFunction"
-        },
-        "CodeSha256": "kbI46XLWRjQAdGpeHEHDLJQ82YCM3ORz7Cc51PSEick="
+        "CodeSha256": "YdWaKkJAT9NpO2neeUsbhw4G2HgE5VyaXP21Iiw5Sho="
       }
     },
     "HttpApi": {
@@ -217,13 +181,13 @@
         "TimeoutInMillis": 6500
       }
     },
-    "HttpApiRouteGetHello": {
+    "HttpApiRouteGetHealthcheck": {
       "Type": "AWS::ApiGatewayV2::Route",
       "Properties": {
         "ApiId": {
           "Ref": "HttpApi"
         },
-        "RouteKey": "GET /hello",
+        "RouteKey": "GET /healthcheck",
         "Target": {
           "Fn::Join": [
             "/",
@@ -237,81 +201,6 @@
         }
       },
       "DependsOn": "HttpApiIntegrationHello"
-    },
-    "WorldLambdaPermissionHttpApi": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "WorldLambdaFunction",
-            "Arn"
-          ]
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "HttpApi"
-              },
-              "/*"
-            ]
-          ]
-        }
-      }
-    },
-    "HttpApiIntegrationWorld": {
-      "Type": "AWS::ApiGatewayV2::Integration",
-      "Properties": {
-        "ApiId": {
-          "Ref": "HttpApi"
-        },
-        "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": {
-          "Fn::GetAtt": [
-            "WorldLambdaFunction",
-            "Arn"
-          ]
-        },
-        "PayloadFormatVersion": "2.0",
-        "TimeoutInMillis": 6500
-      }
-    },
-    "HttpApiRouteGetWorld": {
-      "Type": "AWS::ApiGatewayV2::Route",
-      "Properties": {
-        "ApiId": {
-          "Ref": "HttpApi"
-        },
-        "RouteKey": "GET /world",
-        "Target": {
-          "Fn::Join": [
-            "/",
-            [
-              "integrations",
-              {
-                "Ref": "HttpApiIntegrationWorld"
-              }
-            ]
-          ]
-        }
-      },
-      "DependsOn": "HttpApiIntegrationWorld"
     }
   },
   "Outputs": {
@@ -326,19 +215,10 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersion0FrFyQtOZICcAEfS5jAuO2V0fL4MYGbZyRUuktJiZRA"
+        "Ref": "HelloLambdaVersionkLa6aFEi5Idw3XETYJwuLuqDFx0HBP5ksP1C6MecUxc"
       },
       "Export": {
         "Name": "sls-express-vpn-updater-dev-HelloLambdaFunctionQualifiedArn"
-      }
-    },
-    "WorldLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "WorldLambdaVersiontWlodvHClKA3ihI64ey3iLwgaSWcUYmKri5Ae5GM8"
-      },
-      "Export": {
-        "Name": "sls-express-vpn-updater-dev-WorldLambdaFunctionQualifiedArn"
       }
     },
     "HttpApiId": {

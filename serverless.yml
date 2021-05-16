@@ -21,8 +21,15 @@ package:
 
 functions:
   hello:
-    handler: bin/hello
+    handler: bin/healthcheck
     events:
       - httpApi:
-          path: /hello
+          path: /healthcheck
+          method: get
+
+  scrape:
+    handler: bin/scrape-latest
+    events:
+      - httpApi:
+          path: /latest
           method: get

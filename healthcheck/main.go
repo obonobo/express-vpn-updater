@@ -8,14 +8,15 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-type Response events.APIGatewayProxyResponse
-
 type Request events.APIGatewayProxyRequest
+type Response events.APIGatewayProxyResponse
 
 func Handler(req Request) (Response, error) {
 	var buf bytes.Buffer
 
-	body, err := json.Marshal(req)
+	body, err := json.Marshal(map[string]string{
+		"message": "All good in the hood",
+	})
 	if err != nil {
 		return Response{StatusCode: 404}, err
 	}

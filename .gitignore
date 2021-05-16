@@ -17,3 +17,4 @@ bin/
 
 # Serverless Framework related files
 node_modules
+README.html
