@@ -32,8 +32,8 @@ func Default() *ScraperController {
 func (c *ScraperController) ScrapeAndRespond(req util.Request) util.Response {
 	params := req.QueryStringParameters
 	wantsRedirect, ok := params[RedirectQueryParamKey]
-	asBool, err := strconv.ParseBool(wantsRedirect)
-	if ok && err == nil && !asBool {
+	redirectNeeded, err := strconv.ParseBool(wantsRedirect)
+	if ok && err == nil && !redirectNeeded {
 		return c.GrabLatestLink()
 	}
 	return c.RedirectToLatest()

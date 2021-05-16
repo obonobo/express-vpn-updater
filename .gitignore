@@ -16,5 +16,6 @@ bin/
 # vendor/
 
 # Serverless Framework related files
+.serverless
 node_modules
 README.html
