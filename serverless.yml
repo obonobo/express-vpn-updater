@@ -23,13 +23,19 @@ functions:
   hello:
     handler: bin/healthcheck
     events:
-      - httpApi:
+      - http:
           path: /healthcheck
           method: get
+          cors: true
 
   scrape:
     handler: bin/scrape-latest
     events:
-      - httpApi:
+      - http:
           path: /latest
           method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                redirect: false

@@ -7,12 +7,11 @@ import (
 )
 
 func main() {
-
-	lambda.Start(handler)
+	lambda.Start(grabLatestLink)
 }
 
-func handler(req util.Request) (util.Response, error) {
+func grabLatestLink(req util.Request) (util.Response, error) {
 	c := controller.Default()
-	response := c.DownloadLatest()
+	response := c.ScrapeAndRespond(req)
 	return response, nil
 }

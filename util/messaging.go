@@ -16,6 +16,12 @@ var (
 	}
 )
 
+const (
+	OK                 = 200
+	CLIENT_ERROR       = 400
+	REDIRECT_SEE_OTHER = 303
+)
+
 func Jsonify(body map[string]interface{}) string {
 	var buf bytes.Buffer
 	marshalled, err := json.Marshal(body)
@@ -31,17 +37,23 @@ func Empty() Response {
 }
 
 func Ok(body map[string]interface{}, headers map[string]string) Response {
-	return CreateResponse(200, body, headers)
+	return CreateResponse(OK, body, headers)
+}
+
+func Redirect(to string) Response {
+	return CreateResponse(REDIRECT_SEE_OTHER, nil, map[string]string{
+		"Location": to,
+	})
 }
 
 func BasicMessage(body string) Response {
-	return CreateResponse(200, map[string]interface{}{
+	return CreateResponse(OK, map[string]interface{}{
 		"message": body,
 	}, nil)
 }
 
 func ClientError(body map[string]interface{}, headers map[string]string) Response {
-	return CreateResponse(400, body, headers)
+	return CreateResponse(CLIENT_ERROR, body, headers)
 }
 
 func CreateResponse(status int, body map[string]interface{}, headers map[string]string) Response {
