@@ -25,14 +25,31 @@ func Default() ScraperService {
 }
 
 func (s *scraper) Link() (string, error) {
+	err := s.initLink()
+	if err != nil {
+		return s.getFromCacheInstead()
+	}
+	s.uploadToCache(s.downloadLink)
+	return s.downloadLink, nil
+}
+
+func (s *scraper) getFromCacheInstead() (string, error) {
+	return "", nil
+}
+
+func (s *scraper) uploadToCache(url string) error {
+	return nil
+}
+
+func (s *scraper) initLink() error {
 	if s.downloadLink == "" {
 		link, err := scrape(s.rootUrl)
 		if err != nil {
-			return "", err
+			return err
 		}
 		s.downloadLink = link
 	}
-	return s.downloadLink, nil
+	return nil
 }
 
 func scrape(url string) (string, error) {

@@ -10,6 +10,7 @@ build: download
 	export GOOS=linux
 	go build -ldflags="-s -w" -o bin/healthcheck   healthcheck/handler.go
 	go build -ldflags="-s -w" -o bin/scrape-latest scrape/handlers/get-latest-link/handler.go
+	go build -ldflags="-s -w" -o bin/scratch scratch/handler.go
 
 clean:
 	rm -rf ./bin ./vendor
