@@ -38,16 +38,16 @@ resources:
         BucketName: express-vpn-deb-cache
 
 functions:
-  hello:
-    handler: bin/healthcheck
+  healthcheck:
+    handler: bin/healthcheck.GET
     events:
       - http:
           path: /healthcheck
           method: get
           cors: true
 
-  scrape:
-    handler: bin/scrape-latest
+  latest:
+    handler: bin/latest.GET
     events:
       - http:
           path: /latest
@@ -57,15 +57,4 @@ functions:
             parameters:
               querystrings:
                 redirect: false
-
-  scratch:
-    handler: bin/scratch
-    events:
-      - http:
-          path: /scratch
-          method: get
-          cors: true
-          request:
-            parameters:
-              querystrings:
-                redirect: false
+                fresh: false
