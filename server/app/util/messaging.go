@@ -3,6 +3,7 @@ package util
 import (
 	"bytes"
 	"encoding/json"
+	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
 )
@@ -17,13 +18,16 @@ var (
 )
 
 const (
-	OK                 = 200
-	CLIENT_ERROR       = 400
-	REDIRECT_SEE_OTHER = 303
-	NOT_FOUND          = 404
+	OK                    = 200
+	REDIRECT_SEE_OTHER    = 303
+	CLIENT_ERROR          = 400
+	NOT_FOUND             = 404
+	UNPROCESSABLE_ENTITY  = 422
+	INTERNAL_SERVER_ERROR = 500
+	SERVICE_UNAVAILABLE   = 503
 )
 
-func Jsonify(body map[string]interface{}) string {
+func Stringify(body map[string]interface{}) string {
 	var buf bytes.Buffer
 	marshalled, err := json.Marshal(body)
 	if err != nil {
@@ -31,6 +35,14 @@ func Jsonify(body map[string]interface{}) string {
 	}
 	json.HTMLEscape(&buf, marshalled)
 	return buf.String()
+}
+
+func MustMarshal(body interface{}) []byte {
+	data, err := json.Marshal(body)
+	if err != nil {
+		panic(err)
+	}
+	return data
 }
 
 func Empty() Response {
@@ -65,12 +77,28 @@ func NotFoundWithHeaders(headers map[string]string) Response {
 	return CreateResponse(NOT_FOUND, nil, headers)
 }
 
+func UnprocessableEntity() Response {
+	return UnprocessableEntityWithHeaders(nil)
+}
+
+func UnprocessableEntityWithHeaders(headers map[string]string) Response {
+	return CreateResponse(UNPROCESSABLE_ENTITY, nil, headers)
+}
+
+func InternalServerError(body map[string]interface{}, headers map[string]string) Response {
+	return CreateResponse(INTERNAL_SERVER_ERROR, body, headers)
+}
+
+func ServiceUnavailable(body map[string]interface{}, headers map[string]string) Response {
+	return CreateResponse(SERVICE_UNAVAILABLE, body, headers)
+}
+
 func CreateResponse(status int, body map[string]interface{}, headers map[string]string) Response {
 	return Response{
-		StatusCode:      status,
 		IsBase64Encoded: false,
-		Body:            Jsonify(body),
+		StatusCode:      status,
 		Headers:         CombineHeaders(defaultHeaders, headers),
+		Body:            Stringify(body),
 	}
 }
 
@@ -91,4 +119,8 @@ func CombineHeaders(header1 map[string]string, header2 map[string]string) map[st
 		both[k] = v
 	}
 	return both
+}
+
+func ResponseIsBad(resp *http.Response) bool {
+	return resp.StatusCode > 400
 }
