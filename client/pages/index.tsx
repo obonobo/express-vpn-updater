@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import HelloWorld from "../src/components/HelloWorld";
+import Navbar from "../src/components/Navbar";
+import HomeBar from "../src/components/Home";
 
 const Content = styled.div`
   justify-content: center;
@@ -12,11 +13,21 @@ const Content = styled.div`
   }
 `;
 
+const Title = styled.text.attrs({ children: "EXPRESS VPN UPDATER" })`
+  color: red;
+  font-size: 280%;
+  font-family: Roboto, sans-serif;
+  padding: 1%;
+`;
+
+
+
 const Home = () => (
   <main>
-    <Content>
-      <HelloWorld />
-    </Content>
+    <Navbar>
+      <Title />
+    </Navbar>
+    <HomeBar/>
   </main>
 );
 
