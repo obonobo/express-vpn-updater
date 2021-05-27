@@ -27,6 +27,7 @@ const Home = () => (
     <Navbar>
       <Title />
     </Navbar>
+    <div style={{height : "50px"}}/>
     <HomeBar/>
   </main>
 );
