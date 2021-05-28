@@ -9,6 +9,7 @@ out	=	bin
 #
 # Compiles a single API endpoint. Specify the route and the file to compile.
 # Usage: $(compile) <route> <file>
+#
 compile = @$(define-compile); compile
 define-compile = compile() (\
 	ROUTE="$${1:-healthcheck}";	\
@@ -36,3 +37,6 @@ clean:
 
 deploy: clean build
 	sls deploy --verbose --stage "${STAGE}"
+
+test:
+	go test -v ./test/...
