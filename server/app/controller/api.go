@@ -4,6 +4,10 @@ import (
 	"github.com/obonobo/express-vpn-updater/server/app/util"
 )
 
+const (
+	HealthcheckMessage = "All good in the hood"
+)
+
 var a *api = &api{}
 
 type api struct {
@@ -32,7 +36,7 @@ func (a *api) controller() Controller {
 // }
 
 func Healthcheck(req util.Request) (util.Response, error) {
-	return util.BasicMessage("All good in the hood"), nil
+	return util.BasicMessage(HealthcheckMessage), nil
 }
 
 func Latest(req util.Request) (util.Response, error) {

@@ -38,5 +38,6 @@ clean:
 deploy: clean build
 	sls deploy --verbose --stage "${STAGE}"
 
-test:
-	go test -v ./test/...
+tests:
+	go clean --testcache \
+		&& go test -v ./test/...

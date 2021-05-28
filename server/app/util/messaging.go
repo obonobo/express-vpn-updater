@@ -124,3 +124,11 @@ func CombineHeaders(header1 map[string]string, header2 map[string]string) map[st
 func ResponseIsBad(resp *http.Response) bool {
 	return resp.StatusCode > 400
 }
+
+func DefaultHeaders() map[string]string {
+	ret := map[string]string{}
+	for k, v := range defaultHeaders {
+		ret[k] = v
+	}
+	return ret
+}
