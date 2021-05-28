@@ -3,14 +3,26 @@ import styled from "styled-components";
 const DownloadButton = styled.button.attrs({ children: "Download" })`
   height: 80px;
   width: 200px;
-  background-color: #d1ce9e;
+  background-color: #ad0a0a;
+  color: white;
   font-size: 1em;
   margin: 1em;
   padding: 1em;
   text-transform: uppercase;
   line-height: 30px;
-  border: 10px solid #1c6ea4;
-  box-shadow: 2px 2px 7px 1px #1c6ea4;
+  border: 10px solid #f1f2f3;
+  box-shadow: 2px 2px 7px 1px #a09d9d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  &:hover {
+    background-color: #e20636;
+  }
+  &:active {
+    transform: translateY(4px);
+    background-color: #ff0000;
+  }
 `;
 
 const DisplayPaper = styled.div.attrs({
@@ -63,15 +75,15 @@ const DisplayPaper = styled.div.attrs({
   - Fix phrasing and spelling in German translation.
   
   ### Removed
-  - Section about "changelog" vs "CHANGELOG".
-  `,
+  - Section about "changelog" vs "CHANGELOG".`,
 })`
-  height: 100%;
   width: 100%;
   padding: 20px;
   margin: 20px;
   background-color: #dac3c3;
   white-space: pre-wrap;
+  font-size: 80%;
+  text-align: left;
 `;
 
 const VersionText = styled.text.attrs({
@@ -80,28 +92,39 @@ const VersionText = styled.text.attrs({
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
   margin: 3%;
 `;
 
-const Root = styled.div`
+const GridItem = styled.div`
+  & > ${DisplayPaper} {
+    float: right;
+  }
   & > ${DownloadButton} {
     margin-bottom: calc(1em + 30px);
+    margin-right: 30%;
   }
+`;
+
+const Root = styled.div`
   text-align: center;
-    justify-content: center;
+  justify-content: center;
   align-items: center;
 `;
 
 const Home = () => {
   return (
     <Root>
-      <VersionText/>
+      <VersionText />
       <Grid>
-        <DownloadButton />
-        <DisplayPaper />
+        <GridItem>
+          <DownloadButton />
+        </GridItem>
+        <GridItem>
+          <DisplayPaper />
+        </GridItem>
       </Grid>
     </Root>
   );
