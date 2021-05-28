@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DownloadButton = styled.button`
+const DownloadButton = styled.button.attrs({ children: "Download" })`
   height: 80px;
   width: 200px;
   background-color: #d1ce9e;
@@ -15,63 +15,56 @@ const DownloadButton = styled.button`
 
 const DisplayPaper = styled.div.attrs({
   children: `
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua. Ac feugiat sed lectus vestibulum
-    mattis ullamcorper velit sed. Maecenas pharetra convallis posuere morbi leo
-    urna. Quis varius quam quisque id diam vel. Quisque sagittis purus sit amet
-    volutpat. Venenatis a condimentum vitae sapien pellentesque habitant morbi
-    tristique. Et odio pellentesque diam volutpat commodo. Semper viverra nam libero
-    justo laoreet. Laoreet id donec ultrices tincidunt arcu non sodales neque. Eget
-    nulla facilisi etiam dignissim diam quis enim. Aliquam ut porttitor leo a diam
-    sollicitudin tempor id eu. A condimentum vitae sapien pellentesque. Massa id
-    neque aliquam vestibulum morbi blandit cursus risus. Donec ultrices tincidunt
-    arcu non. Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque
-    purus. Volutpat lacus laoreet non curabitur gravida.
-    
-    Id venenatis a condimentum vitae sapien pellentesque habitant. Lectus sit amet
-    est placerat in. Diam phasellus vestibulum lorem sed risus ultricies tristique
-    nulla aliquet. Morbi leo urna molestie at elementum eu facilisis sed. Dolor
-    purus non enim praesent. Sollicitudin tempor id eu nisl nunc. Est velit egestas
-    dui id ornare arcu odio. Id cursus metus aliquam eleifend mi in. Velit egestas
-    dui id ornare. Massa sed elementum tempus egestas sed sed risus. Lacus sed
-    viverra tellus in hac habitasse platea dictumst vestibulum. Risus commodo
-    viverra maecenas accumsan. Amet nisl suscipit adipiscing bibendum est. Eget mi
-    proin sed libero enim sed faucibus. Dolor morbi non arcu risus quis. Bibendum ut
-    tristique et egestas quis ipsum suspendisse ultrices gravida.
-    
-    Nulla pellentesque dignissim enim sit amet venenatis urna. Vitae proin sagittis
-    nisl rhoncus mattis. Nisi lacus sed viverra tellus in hac habitasse platea.
-    Fusce ut placerat orci nulla pellentesque. Nec feugiat in fermentum posuere urna
-    nec tincidunt praesent semper. Dignissim cras tincidunt lobortis feugiat vivamus
-    at. Laoreet non curabitur gravida arcu ac tortor dignissim. Aliquet lectus proin
-    nibh nisl condimentum id venenatis a. Odio aenean sed adipiscing diam donec.
-    Ipsum a arcu cursus vitae congue mauris. Molestie ac feugiat sed lectus.
-    Ullamcorper malesuada proin libero nunc consequat interdum varius sit.
-    Ullamcorper velit sed ullamcorper morbi tincidunt ornare. A diam maecenas sed
-    enim. Nisl suscipit adipiscing bibendum est ultricies integer quis. Hendrerit
-    dolor magna eget est. Feugiat pretium nibh ipsum consequat nisl. Fermentum
-    posuere urna nec tincidunt praesent semper feugiat nibh.
-    
-    Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Tortor
-    pretium viverra suspendisse potenti nullam ac tortor. Nunc pulvinar sapien et
-    ligula ullamcorper. Venenatis lectus magna fringilla urna porttitor rhoncus.
-    Massa eget egestas purus viverra accumsan in. Sit amet porttitor eget dolor. In
-    metus vulputate eu scelerisque felis imperdiet proin fermentum leo. In hac
-    habitasse platea dictumst vestibulum rhoncus est pellentesque. Pellentesque sit
-    amet porttitor eget dolor morbi non arcu risus. Sit amet nisl suscipit
-    adipiscing bibendum. Rutrum quisque non tellus orci ac. Nullam vehicula ipsum a
-    arcu cursus vitae congue mauris. Leo duis ut diam quam nulla porttitor. Feugiat
-    pretium nibh ipsum consequat.
-    
-    Egestas dui id ornare arcu odio. Tristique senectus et netus et malesuada fames
-    ac turpis egestas. Tincidunt augue interdum velit euismod in pellentesque massa
-    placerat. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Iaculis at erat
-    pellentesque adipiscing commodo elit at. Cras fermentum odio eu feugiat pretium
-    nibh ipsum consequat nisl. Nec sagittis aliquam malesuada bibendum arcu vitae.
-    Cursus vitae congue mauris rhoncus. Tellus at urna condimentum mattis
-    pellentesque id nibh. Porta nibh venenatis cras sed felis eget velit aliquet.
-    Condimentum id venenatis a condimentum vitae sapien pellentesque habitant.
-  `
+  # Changelog
+
+  ## [1.0.0] - 2017-06-20
+  ### Added
+  - New visual identity by [@tylerfortune8](https://github.com/tylerfortune8).
+  - Version navigation.
+  - Links to latest released version in previous versions.
+  - "Why keep a changelog?" section.
+  - "Who needs a changelog?" section.
+  - "How do I make a changelog?" section.
+  - "Frequently Asked Questions" section.
+  - New "Guiding Principles" sub-section to "How do I make a changelog?".
+  - Simplified and Traditional Chinese translations from [@tianshuo](https://github.com/tianshuo).
+  - German translation from [@mpbzh](https://github.com/mpbzh) & [@Art4](https://github.com/Art4).
+  - Italian translation from [@azkidenz](https://github.com/azkidenz).
+  - Swedish translation from [@magol](https://github.com/magol).
+  - Turkish translation from [@karalamalar](https://github.com/karalamalar).
+  - French translation from [@zapashcanon](https://github.com/zapashcanon).
+  - Brazilian Portugese translation from [@Webysther](https://github.com/Webysther).
+  - Polish translation from [@amielucha](https://github.com/amielucha) & [@m-aciek](https://github.com/m-aciek).
+  - Russian translation from [@aishek](https://github.com/aishek).
+  - Czech translation from [@h4vry](https://github.com/h4vry).
+  - Slovak translation from [@jkostolansky](https://github.com/jkostolansky).
+  - Korean translation from [@pierceh89](https://github.com/pierceh89).
+  - Croatian translation from [@porx](https://github.com/porx).
+  - Persian translation from [@Hameds](https://github.com/Hameds).
+  - Ukrainian translation from [@osadchyi-s](https://github.com/osadchyi-s).
+  
+  ### Changed
+  - Start using "changelog" over "change log" since it's the common usage.
+  - Start versioning based on the current English version at 0.3.0 to help
+  translation authors keep things up-to-date.
+  - Rewrite "What makes unicorns cry?" section.
+  - Rewrite "Ignoring Deprecations" sub-section to clarify the ideal
+    scenario.
+  - Improve "Commit log diffs" sub-section to further argument against
+    them.
+  - Merge "Why can’t people just use a git log diff?" with "Commit log
+    diffs"
+  - Fix typos in Simplified Chinese and Traditional Chinese translations.
+  - Fix typos in Brazilian Portuguese translation.
+  - Fix typos in Turkish translation.
+  - Fix typos in Czech translation.
+  - Fix typos in Swedish translation.
+  - Improve phrasing in French translation.
+  - Fix phrasing and spelling in German translation.
+  
+  ### Removed
+  - Section about "changelog" vs "CHANGELOG".
+  `,
 })`
   height: 100%;
   width: 100%;
@@ -81,13 +74,36 @@ const DisplayPaper = styled.div.attrs({
   white-space: pre-wrap;
 `;
 
+const VersionText = styled.text.attrs({
+  children: "Express VPN Latest Version : Version 4.2.0.6.9",
+})``;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  margin: 3%;
+`;
+
+const Root = styled.div`
+  & > ${DownloadButton} {
+    margin-bottom: calc(1em + 30px);
+  }
+  text-align: center;
+    justify-content: center;
+  align-items: center;
+`;
+
 const Home = () => {
   return (
-    <div>
-      <DownloadButton>Download</DownloadButton>
-      <div style={{ height: "30px" }} />
-      <DisplayPaper />
-    </div>
+    <Root>
+      <VersionText/>
+      <Grid>
+        <DownloadButton />
+        <DisplayPaper />
+      </Grid>
+    </Root>
   );
 };
 
