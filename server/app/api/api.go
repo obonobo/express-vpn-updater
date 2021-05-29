@@ -1,7 +1,7 @@
 package api
 
 import (
-	healthyController "github.com/obonobo/express-vpn-updater/server/app/api/healthcheck/controller"
+	health "github.com/obonobo/express-vpn-updater/server/app/api/healthcheck/controller"
 	latest "github.com/obonobo/express-vpn-updater/server/app/api/latest/controller"
 	"github.com/obonobo/express-vpn-updater/server/app/config"
 )
@@ -13,7 +13,7 @@ var (
 
 type api struct {
 	lc *latest.Controller
-	hc *healthyController.Controller
+	hc *health.Controller
 }
 
 func (a *api) latestController() latest.Controller {
@@ -24,9 +24,9 @@ func (a *api) latestController() latest.Controller {
 	return *a.lc
 }
 
-func (a *api) healthcheckController() healthyController.Controller {
+func (a *api) healthcheckController() health.Controller {
 	if a.hc == nil {
-		controller := healthyController.New()
+		controller := health.New()
 		a.hc = &controller
 	}
 	return *a.hc

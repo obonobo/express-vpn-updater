@@ -1,14 +1,19 @@
-package controller
+package queryparams
 
 import (
 	"strconv"
 
+	"github.com/obonobo/express-vpn-updater/server/app/config"
 	"github.com/obonobo/express-vpn-updater/server/app/util"
 )
 
 const (
 	REDIRECT_QUERY_PARAM_KEY = "redirect"
 	FRESH_QUERY_PARAM_KEY    = "fresh"
+)
+
+var (
+	logger = config.Get().Logger()
 )
 
 type QueryParams struct {

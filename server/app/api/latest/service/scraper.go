@@ -1,6 +1,6 @@
 package service
 
-import "github.com/obonobo/express-vpn-updater/server/app/model/cache"
+import "github.com/obonobo/express-vpn-updater/server/app/api/latest/model/cache"
 
 type scraper struct {
 	cache cache.Cache

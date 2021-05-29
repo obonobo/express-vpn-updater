@@ -2,7 +2,9 @@ package controller
 
 import "github.com/obonobo/express-vpn-updater/server/app/util"
 
-const HealthcheckMessage = "All good in the hood"
+const (
+	HealthcheckMessage = "All good in the hood"
+)
 
 type healthConciousController struct{}
 
