@@ -24,8 +24,8 @@ func ParseParams(req util.Request) *QueryParams {
 }
 
 type QueryParams struct {
-	fresh    bool
-	redirect bool
+	Fresh    bool
+	Redirect bool
 }
 
 type ParamsCache struct {
@@ -48,17 +48,17 @@ func (p *ParamsCache) GetParams() *QueryParams {
 	logger.Println("Inside ParamsCache.GetParams")
 	if p.params == nil {
 		logger.Println("I hit the if - ", p, p.params)
-		p.params = &QueryParams{redirect: true}
+		p.params = &QueryParams{Redirect: true}
 	}
 	return p.params
 }
 
 func (p *ParamsCache) setRedirect(value bool) {
-	p.GetParams().redirect = value
+	p.GetParams().Redirect = value
 }
 
 func (p *ParamsCache) setFresh(value bool) {
-	p.GetParams().fresh = value
+	p.GetParams().Fresh = value
 }
 
 func (p *ParamsCache) parseRedirect(req util.Request) *ParamsCache {

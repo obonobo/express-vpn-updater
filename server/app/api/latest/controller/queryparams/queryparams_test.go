@@ -52,8 +52,8 @@ func createRequest(redirect, fresh bool) util.Request {
 
 func createQueryParams(redirect, fresh bool) *QueryParams {
 	return &QueryParams{
-		redirect: redirect,
-		fresh:    fresh,
+		Redirect: redirect,
+		Fresh:    fresh,
 	}
 }
 

@@ -1,6 +1,6 @@
 package cache
 
-import "github.com/obonobo/express-vpn-updater/server/config"
+import "github.com/obonobo/express-vpn-updater/server/app/config"
 
 type Builder struct {
 	bucket    string

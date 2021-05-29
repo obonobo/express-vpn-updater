@@ -1,9 +1,9 @@
 package cache
 
 import (
-	"github.com/obonobo/express-vpn-updater/server/app/model/scraper"
-	"github.com/obonobo/express-vpn-updater/server/app/model/store"
-	"github.com/obonobo/express-vpn-updater/server/config"
+	"github.com/obonobo/express-vpn-updater/server/app/api/latest/model/scraper"
+	"github.com/obonobo/express-vpn-updater/server/app/api/latest/model/store"
+	"github.com/obonobo/express-vpn-updater/server/app/config"
 )
 
 type s3cache struct {
