@@ -8,8 +8,6 @@ import (
 
 var logger = config.Get().Logger()
 
-// var logger = log.Default()
-
 type ScrapingCacheController struct {
 	service service.Service
 }

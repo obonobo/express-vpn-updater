@@ -23,18 +23,6 @@ func (a *api) controller() Controller {
 	return *a.c
 }
 
-// func Healthcheck(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-// 	buf, _ := json.Marshal(map[string]interface{}{
-// 		"message": "All good in the hood",
-// 	})
-
-// 	return events.APIGatewayProxyResponse{
-// 		IsBase64Encoded: false,
-// 		StatusCode:      200,
-// 		Body:            string(buf),
-// 	}, nil
-// }
-
 func Healthcheck(req util.Request) (util.Response, error) {
 	return util.BasicMessage(HealthcheckMessage), nil
 }

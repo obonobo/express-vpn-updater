@@ -1,11 +1,10 @@
-package healthcheck
+package controller
 
 import (
 	"testing"
 
-	"github.com/obonobo/express-vpn-updater/server/app/controller"
 	"github.com/obonobo/express-vpn-updater/server/app/util"
-	"github.com/obonobo/express-vpn-updater/server/test/testutils"
+	"github.com/obonobo/express-vpn-updater/server/app/util/testutils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +17,7 @@ const (
 
 var (
 	desiredHeaders = util.DefaultHeaders()
-	desiredBody    = map[string]interface{}{"message": controller.HealthcheckMessage}
+	desiredBody    = map[string]interface{}{"message": HealthcheckMessage}
 )
 
 func TestHealthcheck(t *testing.T) {
@@ -28,7 +27,7 @@ func TestHealthcheck(t *testing.T) {
 }
 
 func requestAndAssert(t *testing.T) util.Response {
-	response, err := controller.Healthcheck(util.Request{})
+	response, err := Healthcheck(util.Request{})
 	if err != nil {
 		assert.Failf(t, errorInResponse, receivedError, err)
 	}

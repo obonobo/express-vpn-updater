@@ -11,16 +11,16 @@ out	=	bin
 # Usage: $(compile) <route> <file>
 #
 compile = @$(define-compile); compile
-define-compile = compile() (\
-	ROUTE="$${1:-healthcheck}";	\
-	FILE="$${2:-GET.go}";	\
-	OUT="$${ROUTE}.$$(cut -d '.' -f 1 <<< $$FILE)"; 	\
-		\
-	echo "Compiling $(out)/$${OUT}"; 	\
-	go build	\
-	-ldflags="-s -w"	\
-	-o "$(out)/$${OUT}"	\
-	"$(in)/$${ROUTE}/$${FILE}"; 	\
+define-compile = compile() (                            \
+	ROUTE="$${1:-healthcheck}";                         \
+	FILE="$${2:-GET.go}";                               \
+	OUT="$${ROUTE}.$$(cut -d '.' -f 1 <<< $$FILE)";     \
+	                                                    \
+	echo "Compiling $(out)/$${OUT}";                    \
+	go build                                            \
+	-ldflags="-s -w"                                    \
+	-o "$(out)/$${OUT}"                                 \
+	"$(in)/$${ROUTE}/$${FILE}";                         \
 )
 
 download:
@@ -40,4 +40,4 @@ deploy: clean build
 
 tests:
 	go clean --testcache \
-		&& go test -v ./test/...
+		&& go test -v $$(go list ./... | grep -v node_modules/)

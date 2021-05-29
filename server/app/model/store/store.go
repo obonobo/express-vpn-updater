@@ -17,8 +17,6 @@ import (
 
 var logger = config.Get().Logger()
 
-// var logger = log.Default()
-
 type Store struct {
 	packageName *string
 	bucket      *string
