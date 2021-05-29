@@ -16,6 +16,13 @@ var (
 	logger = config.Get().Logger()
 )
 
+// Parse the query params from a request
+func ParseParams(req util.Request) *QueryParams {
+	return NewParamsCache().
+		Save(req).
+		GetParams()
+}
+
 type QueryParams struct {
 	fresh    bool
 	redirect bool
@@ -69,10 +76,4 @@ func (p *ParamsCache) parseBoolQueryParam(req util.Request, key string, consume 
 		consume(value)
 	}
 	return p
-}
-
-func ParseParams(req util.Request) *QueryParams {
-	return NewParamsCache().
-		Save(req).
-		GetParams()
 }
