@@ -5,7 +5,10 @@ import (
 	"os"
 )
 
-const callingAPIFormat = "Calling API: %s\n"
+const (
+	callingAPIFormat = "Calling API: %s\n"
+	insideFunction   = "Inside function: %s\n"
+)
 
 var (
 	loggerOut    = os.Stderr
@@ -29,4 +32,9 @@ func (l *Logger) LogApiCall(name string, additionalMessages ...interface{}) {
 	for _, msg := range additionalMessages {
 		l.Println(msg)
 	}
+}
+
+// Logs a message to indicate what function we are inside of
+func (l *Logger) Inside(functionName string) {
+	l.Printf(insideFunction, functionName)
 }

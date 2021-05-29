@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/obonobo/express-vpn-updater/server/config"
+	"github.com/obonobo/express-vpn-updater/server/app/config"
 )
 
 var maxFileSize int64 = config.Get().MaxFileSize
@@ -25,6 +25,6 @@ func (e FileTooBigError) Error() string {
 	)
 }
 
-func exceedsMaxFileSize(res *http.Response) bool {
+func exceedsMaxFileSize(res *http.Response) (fileTooBig bool) {
 	return res.ContentLength > maxFileSize
 }
