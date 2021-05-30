@@ -13,27 +13,33 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/obonobo/express-vpn-updater/server/app/config"
+	"github.com/obonobo/express-vpn-updater/server/app/util"
+	"github.com/obonobo/express-vpn-updater/server/app/util/logging"
 )
 
 var (
-	logger = config.Get().Logger()
+	logger            *logging.Logger = config.Get().Logger()
+	defaultHttpClient util.HttpClient = http.DefaultClient
+	defaultS3Client   S3Client        = nil
 )
 
 type S3Store struct {
-	c           *s3.S3
-	packageName *string
+	sc          S3Client
+	hc          util.HttpClient
 	bucket      *string
+	packageName *string
 }
 
-func New(client *s3.S3, bucket string) Store {
+func New(s3client S3Client, httpClient util.HttpClient, bucket string) Store {
 	return &S3Store{
 		bucket: aws.String(bucket),
-		c:      client,
+		sc:     s3client,
+		hc:     httpClient,
 	}
 }
 
 func NewStoreWithBucket(bucket string) Store {
-	return New(nil, bucket)
+	return New(defaultS3Client, defaultHttpClient, bucket)
 }
 
 func Default() Store {
@@ -74,11 +80,11 @@ func (s *S3Store) alreadyExists(url string) bool {
 	return strings.EqualFold(path.Base(url), s.pkgName())
 }
 
-func (s *S3Store) client() *s3.S3 {
-	if s.c == nil {
-		s.c = s3.New(session.Must(session.NewSession()))
+func (s *S3Store) client() S3Client {
+	if s.sc == nil {
+		s.sc = s3.New(session.Must(session.NewSession()))
 	}
-	return s.c
+	return s.sc
 }
 
 func (s *S3Store) uploadFile(url string, file []byte) error {
@@ -91,7 +97,7 @@ func (s *S3Store) uploadFile(url string, file []byte) error {
 }
 
 func (s *S3Store) downloadFile(url string) ([]byte, error) {
-	got, err := http.Get(url)
+	got, err := s.hc.Get(url)
 	if err != nil {
 		return nil, err
 	}
