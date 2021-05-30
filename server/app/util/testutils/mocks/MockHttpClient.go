@@ -1,6 +1,11 @@
 package mocks
 
-import "net/http"
+import (
+	"net/http"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 type Get func(url string) (*http.Response, error)
 
@@ -26,4 +31,21 @@ func (mhc *MockHttpClient) WithGet(get Get) *MockHttpClient {
 func (mhc *MockHttpClient) Get(url string) (*http.Response, error) {
 	mhc.Urls = append(mhc.Urls, url)
 	return mhc.get(url)
+}
+
+// Assert that the given url was pinged (via a GET request) a specific number of
+// times
+func (mhc *MockHttpClient) AssertUrlPinged(
+	t *testing.T, url string,
+	numberOfTimes int,
+	msgAndArgs ...interface{},
+) (this *MockHttpClient) {
+	urlWasPinged := 0
+	for _, v := range mhc.Urls {
+		if v == url {
+			urlWasPinged++
+		}
+	}
+	assert.Equal(t, urlWasPinged, numberOfTimes, msgAndArgs...)
+	return mhc
 }

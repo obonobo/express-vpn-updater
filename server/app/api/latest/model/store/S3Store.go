@@ -17,6 +17,10 @@ import (
 	"github.com/obonobo/express-vpn-updater/server/app/util/logging"
 )
 
+const (
+	PackageLinkFormat = "https://%s.s3.amazonaws.com/%s"
+)
+
 var (
 	logger            *logging.Logger = config.Get().Logger()
 	defaultHttpClient util.HttpClient = http.DefaultClient
@@ -109,7 +113,7 @@ func (s *S3Store) downloadFile(url string) ([]byte, error) {
 }
 
 func (s *S3Store) createPkgLink(key string) string {
-	return fmt.Sprintf("https://%s.s3.amazonaws.com/%s", *s.bucket, key)
+	return fmt.Sprintf(PackageLinkFormat, *s.bucket, key)
 }
 
 func (s *S3Store) getPkgName() (key string, err error) {
