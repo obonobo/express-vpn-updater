@@ -2,8 +2,8 @@
 
 SHELL	=	bash
 STAGE	?=	dev
-in	=	app/routes
-out	=	bin
+in		=	app/handlers
+out		=	bin
 
 # COMPILE FUNCTION.
 #
@@ -29,8 +29,9 @@ download:
 build: download
 	export GOOS=linux
 	export GO111MODULE=on
-	$(compile) healthcheck	GET.go
-	$(compile) latest	GET.go
+
+	$(compile) healthcheck GET.go
+	$(compile) latest      GET.go
 
 clean:
 	rm -rf ./$(out) ./vendor
@@ -39,5 +40,5 @@ deploy: clean build
 	sls deploy --verbose --stage "${STAGE}"
 
 tests:
-	go clean --testcache \
-		&& go test -v $$(go list ./... | grep -v node_modules/)
+	go clean --testcache
+	go test -v $$(go list ./... | grep -v node_modules/)
