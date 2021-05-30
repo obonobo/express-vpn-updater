@@ -1,16 +1,19 @@
 package mocks
 
-type stringOrErrorFunction func() (string, error)
-type refreshFromFunction func(string) error
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 type MockCache struct {
 	RefreshFromInputs []string
 	GetOutputs        []string
 	RefreshOutputs    []string
 
-	get         stringOrErrorFunction
-	refresh     stringOrErrorFunction
-	refreshFrom refreshFromFunction
+	get         func() (string, error)
+	refresh     func() (string, error)
+	refreshFrom func(string) error
 }
 
 func NewMockCache() *MockCache {
@@ -38,17 +41,52 @@ func (mc *MockCache) RefreshFrom(url string) error {
 	return mc.refreshFrom(url)
 }
 
-func (mc *MockCache) WithGet(get stringOrErrorFunction) *MockCache {
+func (mc *MockCache) WithGet(get func() (string, error)) *MockCache {
 	mc.get = get
 	return mc
 }
 
-func (mc *MockCache) WithRefresh(refresh stringOrErrorFunction) *MockCache {
+func (mc *MockCache) WithRefresh(refresh func() (string, error)) *MockCache {
 	mc.refresh = refresh
 	return mc
 }
 
-func (mc *MockCache) WithRefreshFrom(refreshFrom refreshFromFunction) *MockCache {
+func (mc *MockCache) WithRefreshFrom(refreshFrom func(string) error) *MockCache {
 	mc.refreshFrom = refreshFrom
+	return mc
+}
+
+func (mc *MockCache) AssertGetWasCalled(t *testing.T, msgAndArgs ...interface{}) *MockCache {
+	return mc.AssertGetWasCalledMultipleTimes(t, once, msgAndArgs...)
+}
+
+func (mc *MockCache) AssertGetWasCalledMultipleTimes(t *testing.T, numberOfTimes int, msgAndArgs ...interface{}) *MockCache {
+	assert.Len(t, mc.GetOutputs, numberOfTimes, msgAndArgs...)
+	return mc
+}
+
+func (mc *MockCache) AssertRefreshWasCalled(t *testing.T, msgAndArgs ...interface{}) *MockCache {
+	return mc.AssertRefreshWasCalledMultipleTimes(t, once, msgAndArgs...)
+}
+
+func (mc *MockCache) AssertRefreshWasCalledMultipleTimes(t *testing.T, numberOfTimes int, msgAndArgs ...interface{}) *MockCache {
+	assert.Len(t, mc.RefreshOutputs, numberOfTimes, msgAndArgs...)
+	return mc
+}
+
+// Runs an assertion on the latest recorded output from the Cache.Get() method.
+// If there is no recorded Cache.Get() calls, then the assertion fails
+func (mc *MockCache) AssertGetOutput(t *testing.T, assertion func(string)) *MockCache {
+	mc.AssertGetWasCalled(t)
+	assertion(mc.GetOutputs[len(mc.GetOutputs)-1])
+	return mc
+}
+
+// Runs an assertion on the latests recorded output from the Cache.Refresh()
+// method. If there is no recorded Cache.Refresh() calls, then the assertion
+// fails.
+func (mc *MockCache) AssertRefreshOutput(t *testing.T, assertion func(string)) *MockCache {
+	mc.AssertRefreshWasCalled(t)
+	assertion(mc.RefreshOutputs[len(mc.RefreshOutputs)-1])
 	return mc
 }
