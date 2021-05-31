@@ -2,6 +2,7 @@ package cache
 
 import "github.com/obonobo/express-vpn-updater/server/app/config"
 
+// A utility struct for building up a Cache object
 type Builder struct {
 	bucket    string
 	sourceUrl string

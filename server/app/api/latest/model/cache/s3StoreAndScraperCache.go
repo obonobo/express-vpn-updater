@@ -6,23 +6,27 @@ import (
 	"github.com/obonobo/express-vpn-updater/server/app/config"
 )
 
-type s3cache struct {
+type s3StoreAndScraperCache struct {
 	store.Store
 	scraper.Scraper
 }
 
+func New(store store.Store, scraper scraper.Scraper) Cache {
+	return &s3StoreAndScraperCache{store, scraper}
+}
+
 func NewCache(bucket string, scrapingFromUrl string) Cache {
-	return &s3cache{
+	return New(
 		store.NewStoreWithBucket(bucket),
 		scraper.NewScraper(scrapingFromUrl),
-	}
+	)
 }
 
 func NewDefaultCache() Cache {
 	return NewCache(config.Get().Bucket, config.Get().Url)
 }
 
-func (c *s3cache) Get() (string, error) {
+func (c *s3StoreAndScraperCache) Get() (string, error) {
 	if cached, err := c.Store.Get(); err == nil {
 		go c.Refresh()
 		return cached, err
@@ -30,7 +34,7 @@ func (c *s3cache) Get() (string, error) {
 	return c.Refresh()
 }
 
-func (c *s3cache) Refresh() (string, error) {
+func (c *s3StoreAndScraperCache) Refresh() (string, error) {
 	if url, err := c.Scraper.Scrape(); err == nil {
 		go c.Store.Put(url)
 		return url, err
@@ -39,6 +43,6 @@ func (c *s3cache) Refresh() (string, error) {
 	}
 }
 
-func (c *s3cache) RefreshFrom(url string) error {
+func (c *s3StoreAndScraperCache) RefreshFrom(url string) error {
 	return c.Store.Put(url)
 }
