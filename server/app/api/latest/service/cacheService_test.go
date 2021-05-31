@@ -50,13 +50,7 @@ func createServiceWithMock() (Service, *mocks.MockCache) {
 func createMockCache() *mocks.MockCache {
 	return mocks.
 		NewMockCache().
-		WithGet(func() (string, error) {
-			return cacheGetOutput, nil
-		}).
-		WithRefresh(func() (string, error) {
-			return cacheRefreshOutput, nil
-		}).
-		WithRefreshFrom(func(s string) error {
-			return nil
-		})
+		WithGet(func() (string, error) { return cacheGetOutput, nil }).
+		WithRefresh(func() (string, error) { return cacheRefreshOutput, nil }).
+		WithRefreshFrom(func(s string) error { return nil })
 }

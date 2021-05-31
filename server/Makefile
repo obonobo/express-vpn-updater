@@ -41,4 +41,4 @@ deploy: clean build
 
 tests:
 	go clean --testcache
-	go test -v $$(go list ./... | grep -v node_modules/)
+	go test $$(go list ./... | grep -v node_modules/)

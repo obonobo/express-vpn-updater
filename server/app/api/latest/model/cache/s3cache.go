@@ -8,13 +8,13 @@ import (
 
 type s3cache struct {
 	store.Store
-	*scraper.Scraper
+	scraper.Scraper
 }
 
 func NewCache(bucket string, scrapingFromUrl string) Cache {
 	return &s3cache{
-		Store:   store.NewStoreWithBucket(bucket),
-		Scraper: scraper.NewScraper(scrapingFromUrl),
+		store.NewStoreWithBucket(bucket),
+		scraper.NewScraper(scrapingFromUrl),
 	}
 }
 

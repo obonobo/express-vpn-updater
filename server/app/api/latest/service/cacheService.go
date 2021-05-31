@@ -1,16 +1,16 @@
 package service
 
-import "github.com/obonobo/express-vpn-updater/server/app/api/latest/model/cache"
+import c "github.com/obonobo/express-vpn-updater/server/app/api/latest/model/cache"
 
 type cacheService struct {
-	cache cache.Cache
+	c.Cache
 }
 
-func New(cash cache.Cache) Service {
-	if cash == nil {
-		return &cacheService{cache: cache.NewDefaultCache()}
+func New(cache c.Cache) Service {
+	if cache == nil {
+		return &cacheService{c.NewDefaultCache()}
 	} else {
-		return &cacheService{cache: cash}
+		return &cacheService{cache}
 	}
 }
 
@@ -19,9 +19,9 @@ func Default() Service {
 }
 
 func (s *cacheService) Latest() (string, error) {
-	return s.cache.Get()
+	return s.Cache.Get()
 }
 
 func (s *cacheService) UpdateCache() (string, error) {
-	return s.cache.Refresh()
+	return s.Cache.Refresh()
 }

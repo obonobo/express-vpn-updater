@@ -110,7 +110,6 @@ func createMockHttpClient() *mocks.MockHttpClient {
 		NewMockHttpClient().
 		WithGet(func(url string) (*http.Response, error) {
 			return &http.Response{
-				StatusCode:    200,
 				Status:        "200 OK",
 				Body:          io.NopCloser(bytes.NewBufferString(testFileBody)),
 				ContentLength: 666,
