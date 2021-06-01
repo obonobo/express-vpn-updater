@@ -15,5 +15,6 @@ func (ms *MockStore) Get() (string, error) {
 
 func (ms *MockStore) Put(downloadFromUrl string) error {
 	ms.NumberOfPutCalls++
+	ms.PutInputs = append(ms.PutInputs, downloadFromUrl)
 	return ms.Err
 }
