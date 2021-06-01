@@ -113,7 +113,10 @@ func (msc *MockS3Client) AssertPutObjectWasCalledMultipleTimes(
 
 // Runs a custom assertion on the most recent recorded PutObject input. If no
 // inputs exist, then the assertion fails.
-func (msc *MockS3Client) AssertPutObjectInput(t *testing.T, assertion func(*s3.PutObjectInput)) (this *MockS3Client) {
+func (msc *MockS3Client) AssertPutObjectInput(
+	t *testing.T,
+	assertion func(input *s3.PutObjectInput),
+) (this *MockS3Client) {
 	assert.NotEmpty(t, msc.PutObjectInputs, "there must be at least 1 recorded PutObject input")
 	assertion(msc.PutObjectInputs[len(msc.PutObjectInputs)-1])
 	return msc
@@ -121,7 +124,10 @@ func (msc *MockS3Client) AssertPutObjectInput(t *testing.T, assertion func(*s3.P
 
 // Runs a custom assertion on the most recent recored ListObjectsV2 input. If no
 // input exists, then the assertion fails.
-func (msc *MockS3Client) AssertListObjectsV2Input(t *testing.T, assertion func(*s3.ListObjectsV2Input)) (this *MockS3Client) {
+func (msc *MockS3Client) AssertListObjectsV2Input(
+	t *testing.T,
+	assertion func(input *s3.ListObjectsV2Input),
+) (this *MockS3Client) {
 	assert.NotEmpty(t, msc.ListObjectInputs, "there must be at least 1 recoreded ListObjectsV2 input")
 	assertion(msc.ListObjectInputs[len(msc.ListObjectInputs)-1])
 	return msc

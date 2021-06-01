@@ -20,15 +20,15 @@ type httpScraper struct {
 	scrappedLink string
 }
 
-func New(client util.HttpClient, sourceUrl string) *httpScraper {
+func New(client util.HttpClient, sourceUrl string) Scraper {
 	return &httpScraper{sourceUrl: sourceUrl, client: client}
 }
 
-func NewScraper(sourceUrl string) *httpScraper {
+func NewScraper(sourceUrl string) Scraper {
 	return New(http.DefaultClient, sourceUrl)
 }
 
-func Default() *httpScraper {
+func Default() Scraper {
 	return New(http.DefaultClient, config.Get().Url)
 }
 

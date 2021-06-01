@@ -39,6 +39,9 @@ clean:
 deploy: clean build
 	sls deploy --verbose --stage "${STAGE}"
 
-tests:
+# NOTE: this build step runs tests but ignores packages within dir `test/`
+# REASONING: I wanted to be able to provide a sub directory with mutliple
+# test-related files (such as mocks and other tools) in each package.
+run-tests:
 	go clean --testcache
-	go test $$(go list ./... | grep -v node_modules/)
+	go test $$(go list ./... | grep -v 'node_modules/\|/test/')

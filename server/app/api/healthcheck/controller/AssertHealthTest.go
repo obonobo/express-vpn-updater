@@ -8,6 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Generic assertion for any request handlers that are supposed to act like the
+// /healthcheck route.
 func AssertHealthTest(t *testing.T, requestConsumer func(req util.Request) (util.Response, error)) {
 	const (
 		errorInResponse    = "controller.Healthcheck may not return an error"
@@ -18,9 +20,7 @@ func AssertHealthTest(t *testing.T, requestConsumer func(req util.Request) (util
 
 	var (
 		desiredHeaders = util.DefaultHeaders()
-		desiredBody    = map[string]interface{}{
-			"message": HealthcheckMessage,
-		}
+		desiredBody    = map[string]interface{}{"message": HealthcheckMessage}
 	)
 
 	response, err := requestConsumer(util.Request{})

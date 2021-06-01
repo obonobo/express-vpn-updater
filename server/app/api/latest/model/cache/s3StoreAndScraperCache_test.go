@@ -53,9 +53,11 @@ func TestRefresh(t *testing.T) {
 	assert.Equal(
 		t, mockResponseFromScraper, resp,
 		"Scraper.Scrape() should have been called, and the mock response should have been returned")
+
 	assert.GreaterOrEqual(
 		t, scraper.NumberOfScrapeCalls, 1,
 		fmt.Sprintf(methodShouldHaveBeenInvoked, "Scraper.Scrape()"))
+
 	time.Sleep(time.Millisecond)
 	assert.GreaterOrEqual(
 		t, store.NumberOfPutCalls, 1,
