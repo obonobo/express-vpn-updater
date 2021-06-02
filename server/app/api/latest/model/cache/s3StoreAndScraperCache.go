@@ -6,6 +6,10 @@ import (
 	"github.com/obonobo/express-vpn-updater/server/app/config"
 )
 
+var (
+	logger = config.Get().Logger()
+)
+
 type s3StoreAndScraperCache struct {
 	store.Store
 	scraper.Scraper
@@ -35,10 +39,14 @@ func (c *s3StoreAndScraperCache) Get() (string, error) {
 }
 
 func (c *s3StoreAndScraperCache) Refresh() (string, error) {
+	logger.Inside("s3StoreAndScraperCache.Refresh()")
 	if url, err := c.Scraper.Scrape(); err == nil {
+		logger.Println("Scraper succeeded without error")
+		logger.Println("The scraped URL is:", url)
 		go c.Store.Put(url)
 		return url, err
 	} else {
+		logger.Println("Scraper failed with error:", err)
 		return "", err
 	}
 }

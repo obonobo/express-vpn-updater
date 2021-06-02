@@ -13,7 +13,7 @@ var (
 	cachedConfig  *Config
 	defaultConfig Config = Config{
 		MaxFileSize: 50000000,
-		Bucket:      "express-vpn-deb-cache",
+		Bucket:      "prod.express-vpn-updater.ca",
 		Url:         "https://www.expressvpn.com/latest-1#linux",
 	}
 )

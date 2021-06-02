@@ -3,6 +3,8 @@ package logging
 import (
 	"log"
 	"os"
+
+	"github.com/obonobo/express-vpn-updater/server/app/util"
 )
 
 const (
@@ -32,6 +34,14 @@ func (l *Logger) LogApiCall(name string, additionalMessages ...interface{}) {
 	for _, msg := range additionalMessages {
 		l.Println(msg)
 	}
+}
+
+// Logs the request and response objects of a request handler
+func (l *Logger) LogRequestAndResponse(request util.Request, handler func(util.Request) util.Response) util.Response {
+	l.Println("REQUEST:", request)
+	resp := handler(request)
+	l.Println("RESPONSE:", resp)
+	return resp
 }
 
 // Logs a message to indicate what function we are inside of

@@ -2,12 +2,14 @@ package api
 
 import "github.com/obonobo/express-vpn-updater/server/app/util"
 
-func Healthcheck(req util.Request) (util.Response, error) {
+func Healthcheck(request util.Request) (util.Response, error) {
 	logger.LogApiCall("Healthcheck", a.healthcheckController())
-	return a.healthcheckController().Healthcheck(req), nil
+	resp := logger.LogRequestAndResponse(request, a.healthcheckController().Healthcheck)
+	return resp, nil
 }
 
 func Latest(req util.Request) (util.Response, error) {
 	logger.LogApiCall("Latest", a.latestController())
-	return a.latestController().Latest(req), nil
+	resp := logger.LogRequestAndResponse(req, a.latestController().Latest)
+	return resp, nil
 }

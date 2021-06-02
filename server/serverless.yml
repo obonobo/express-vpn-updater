@@ -1,6 +1,10 @@
 service: express-vpn-updater
 configValidationMode: error
 
+# Configure a different S3 bucket name for prod and dev
+custom:
+  vars: ${file(vars.yml):${opt:stage, self:provider.stage}, file(vars.yml):dev}
+
 plugins:
   - serverless-offline
 
@@ -21,21 +25,22 @@ provider:
       statements:
         - Effect: Allow
           Action:
-            # TEMPORARY: narrow down the perms to just what you need here
             - "s3:*"
             - "s3:ListObjectsV2"
             - "s3:PutObject"
             - "s3:GetObject"
             - "s3:DeleteObject"
-          Resource: "arn:aws:s3:::express-vpn-deb-cache"
+          Resource: "arn:aws:s3:::*express-vpn-updater*"
 
 resources:
+  Description: .deb package cache
   Resources:
     S3Bucket:
       Type: "AWS::S3::Bucket"
       DeletionPolicy: Delete
       Properties:
-        BucketName: express-vpn-deb-cache
+        AccessControl: PublicRead
+        BucketName: ${self:custom.vars.BUCKET_NAME}
 
 functions:
   healthcheck:

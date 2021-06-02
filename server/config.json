@@ -1,5 +1,5 @@
 {
   "Url": "https://www.expressvpn.com/latest-1#linux",
-  "Bucket": "express-vpn-deb-cache",
+  "Bucket": "prod.express-vpn-updater.ca",
   "MaxFileSize": 50000000
 }

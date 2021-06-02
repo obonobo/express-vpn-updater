@@ -1,0 +1,14 @@
+# This is Ansible syntax btw
+
+default: &default
+  REGION: ${opt:region, self:provider.region}
+  STAGE: ${opt:stage, "dev"}
+  STACKNAME: ${self:service}-${self:custom.vars.STAGE}
+  BUCKET_PREFIX: ${self:custom.vars.STAGE}
+  BUCKET_NAME: ${self:custom.vars.BUCKET_PREFIX}.express-vpn-updater.ca
+
+dev:
+  <<: [*default]
+
+prod:
+  <<: [*default]

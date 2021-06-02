@@ -37,11 +37,11 @@ clean:
 	rm -rf ./$(out) ./vendor
 
 deploy: clean build
-	sls deploy --verbose --stage "${STAGE}"
+	yarn sls deploy --verbose --stage "${STAGE}"
 
 # NOTE: this build step runs tests but ignores packages within dir `test/`
 # REASONING: I wanted to be able to provide a sub directory with mutliple
 # test-related files (such as mocks and other tools) in each package.
 test:
 	go clean --testcache
-	go test $$(go list ./... | grep -v 'node_modules/\|/test/')
+	go test $$(go list ./... | grep -vP '(node_modules/|/test/|/test$$)')
