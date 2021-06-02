@@ -44,4 +44,4 @@ deploy: clean build
 # test-related files (such as mocks and other tools) in each package.
 test:
 	go clean --testcache
-	go test $$(go list ./... | grep -v 'node_modules/\|/test/')
+	go test $$(go list ./... | grep -vP '(node_modules/|/test/|/test$$)')

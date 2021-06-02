@@ -8,7 +8,8 @@
     "watch": "nodemon --watch ./ -e go,js --exec make build",
     "build": "make build",
     "deploy": "make deploy",
-    "clean": "make clean"
+    "clean": "make clean",
+    "test": "make test"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
