@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	healthcheck "github.com/obonobo/express-vpn-updater/server/app/api/healthcheck/controller"
-	"github.com/obonobo/express-vpn-updater/server/app/api/latest/test"
+	"github.com/obonobo/express-vpn-updater/server/app/api/test"
 )
 
 // Tests: GET /healthcheck

@@ -42,6 +42,6 @@ deploy: clean build
 # NOTE: this build step runs tests but ignores packages within dir `test/`
 # REASONING: I wanted to be able to provide a sub directory with mutliple
 # test-related files (such as mocks and other tools) in each package.
-run-tests:
+test:
 	go clean --testcache
 	go test $$(go list ./... | grep -v 'node_modules/\|/test/')
