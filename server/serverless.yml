@@ -1,3 +1,5 @@
+org: obonobo
+app: express-vpn-updater
 service: express-vpn-updater
 configValidationMode: error
 
