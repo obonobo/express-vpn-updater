@@ -18,9 +18,9 @@ define-compile = compile() (                            \
 	                                                    \
 	echo "Compiling $(out)/$${OUT}";                    \
 	go build                                            \
-	-ldflags="-s -w"                                    \
-	-o "$(out)/$${OUT}"                                 \
-	"$(in)/$${ROUTE}/$${FILE}";                         \
+		-ldflags="-s -w"                                \
+		-o "$(out)/$${OUT}"                             \
+		"$(in)/$${ROUTE}/$${FILE}";                     \
 )
 
 download:
@@ -29,7 +29,6 @@ download:
 build: download
 	export GOOS=linux
 	export GO111MODULE=on
-
 	$(compile) healthcheck GET.go
 	$(compile) latest      GET.go
 

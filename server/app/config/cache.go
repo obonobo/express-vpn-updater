@@ -30,14 +30,14 @@ func initConfig() {
 	if err != nil {
 		cachedConfig = &defaultConfig
 	} else if cfg, err := parse(configFileData); err != nil {
-		cachedConfig = &cfg
+		cachedConfig = cfg
 	}
 }
 
-func parse(data []byte) (Config, error) {
+func parse(data []byte) (*Config, error) {
 	cfg := Config{}
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return Config{}, err
 	}
-	return cfg, nil
+	return &cfg, nil
 }

@@ -12,6 +12,7 @@ package:
   patterns:
     - "!./**"
     - ./bin/**
+    - config.json
 
 provider:
   name: aws
@@ -27,10 +28,11 @@ provider:
           Action:
             - "s3:*"
             - "s3:ListObjectsV2"
-            - "s3:PutObject"
+            - "s3g:PutObject"
             - "s3:GetObject"
             - "s3:DeleteObject"
-          Resource: "arn:aws:s3:::*express-vpn-updater*"
+          # Resource: "arn:aws:s3:::*express-vpn-updater*"
+          Resource: "arn:aws:s3:::*"
 
 resources:
   Description: .deb package cache
